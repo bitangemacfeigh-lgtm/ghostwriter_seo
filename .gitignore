@@ -1,0 +1,23 @@
+# Credentials
+.env
+
+# Python stuff
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+env/
+
+# Streamlit stuff
+.streamlit/
+
+# Generated Content (Optional - ignore if you don't want to upload test articles)
+article_*.md
+article_*.pdf
+hijack_*.md
+hijack_*.pdf
+
+# OS stuff
+.DS_Store
+Thumbs.db

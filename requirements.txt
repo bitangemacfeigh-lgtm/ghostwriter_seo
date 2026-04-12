@@ -1,0 +1,7 @@
+mistralai>=1.0.0
+streamlit>=1.30.0
+streamlit-extras
+beautifulsoup4
+requests
+python-dotenv
+fpdf2
