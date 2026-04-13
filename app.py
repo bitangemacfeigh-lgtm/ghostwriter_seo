@@ -8,7 +8,7 @@ from fpdf import FPDF
 # 1. Page Configuration
 st.set_page_config(page_title="Ghostwriter SEO Architect", page_icon="✍️", layout="wide")
 
-# 2. PDF Generator Helper (FIXED)
+# 2. PDF Generator Helper
 class PDF(FPDF):
     def header(self):
         self.set_font('Arial', 'B', 12)
@@ -23,10 +23,9 @@ def create_pdf(text):
     pdf = PDF()
     pdf.add_page()
     pdf.set_font("Arial", size=11)
-    # Sanitize for latin-1 (standard PDF fonts)
+    # Sanitize for latin-1
     clean_text = text.encode('latin-1', 'replace').decode('latin-1')
     pdf.multi_cell(0, 10, clean_text)
-    # FIX: Ensure it returns bytes for Streamlit
     return bytes(pdf.output())
 
 # 3. CSS Loader
@@ -38,6 +37,7 @@ def local_css(file_name):
 local_css("style.css")
 
 def main():
+    # --- Sidebar ---
     with st.sidebar:
         st.title("✍️ Ghostwriter v1.0")
         st.info("Strategy: Competitor Hijack Mode")
@@ -46,6 +46,14 @@ def main():
             st.cache_data.clear()
             st.rerun()
 
+    # --- Main Content Area ---
+    
+    # Hero Image Integration
+    # Path relative to the project root for GitHub/Render portability
+    image_path = "assets/ghostwriter.jpg"
+    if os.path.exists(image_path):
+        st.image(image_path, use_container_width=True)
+    
     st.title("SEO Content Architect")
     st.write("Target a competitor URL to generate a high-authority 'Content Hijack' cluster.")
     
@@ -61,7 +69,6 @@ def main():
                 data = analyze_url(target_url)
                 base_topic = data['headings'][0] if data['headings'] else "Industry Strategy"
                 
-                # Market-Focused Topics
                 topics = [
                     f"The 10x Pillar: {base_topic} Mastery",
                     f"Why Competitors Fail at {base_topic} (Gap Analysis)",
