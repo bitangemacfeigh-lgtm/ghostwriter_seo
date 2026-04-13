@@ -1,7 +1,7 @@
-mistralai>=1.0.0
-streamlit>=1.30.0
-streamlit-extras
-beautifulsoup4
-requests
-python-dotenv
-fpdf2
+mistralai==1.1.0
+streamlit==1.32.0
+streamlit-extras==0.4.0
+beautifulsoup4==4.12.3
+requests==2.31.0
+python-dotenv==1.0.1
+fpdf2==2.7.8
