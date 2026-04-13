@@ -2,19 +2,31 @@ import os
 from mistralai import Mistral
 from dotenv import load_dotenv
 
+# 1. Load Environment Variables
 load_dotenv()
-api_key = os.getenv("MISTRAL_API_KEY")
 
-if not api_key:
-    raise ValueError("MISTRAL_API_KEY not found. Please check your .env file.")
-
-client = Mistral(api_key=api_key)
+def get_mistral_client():
+    """
+    Safely retrieves the API key and initializes the Mistral client.
+    Using a function ensures we don't crash on import if the key is missing.
+    """
+    api_key = os.getenv("MISTRAL_API_KEY")
+    if not api_key:
+        # On Render, this will help you debug if the Env Var was set correctly
+        raise ValueError("CRITICAL: MISTRAL_API_KEY is missing from environment variables.")
+    return Mistral(api_key=api_key)
 
 def generate_aeo_article(topic, gap_context):
     """
     Generates a 'Content Hijack' article designed to outrank the competitor context.
     """
     print(f"\n[AI ARCHITECT] Executing Hijack Strategy: {topic}")
+    
+    # Initialize client inside the function to avoid global scope import errors
+    try:
+        client = get_mistral_client()
+    except Exception as e:
+        return f"### Configuration Error\n{str(e)}"
     
     prompt = f"""
     ACT AS: A Lead SEO Content Architect.
